@@ -1,0 +1,39 @@
+class Solution {
+    public List<List<Integer>> findTriplets(int[] arr) {
+        // Your code here
+        HashMap<Integer,List<Integer>> hmap = new HashMap<>();
+        
+        List<List<Integer>> ans = new ArrayList<>();
+        
+        
+        for(int i=0;i<arr.length;i++){
+            if(hmap.containsKey(arr[i])){
+                hmap.get(arr[i]).add(i);
+            }
+            else{
+                hmap.put(arr[i],new ArrayList<>());
+                hmap.get(arr[i]).add(i);
+            }
+        }
+        
+        for(int i=0;i<arr.length;i++){
+            for(int j=i+1;j<arr.length;j++){
+                int val = -arr[i]-arr[j];
+                if(hmap.containsKey(val)){
+                    for(int k:hmap.get(val)){
+                        if(k>j){
+                            List<Integer> al = new ArrayList<>();
+                            al.add(i);
+                            al.add(j);
+                            al.add(k);
+                            ans.add(al);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return ans;
+        }
+    }
+    
