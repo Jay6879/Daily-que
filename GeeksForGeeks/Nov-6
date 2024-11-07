@@ -1,0 +1,28 @@
+class Solution {
+    public static int treePathsSum(Node root) {
+        // add code here.
+        return dfs(root,0);
+    }
+    public static int dfs(Node root,int parentVal){
+        if(root==null){
+            return 0;
+        }
+        
+        if(root.left==null && root.right==null){
+            return parentVal*10+root.data;
+        }
+        
+        int left = 0;
+        if(root.left!=null){
+            left = dfs(root.left,parentVal*10+root.data);
+        }
+        int right = 0;
+        
+        if(root.right!=null){
+            right = dfs(root.right,parentVal*10+root.data);
+        }
+        
+        return left+right;
+        
+    }
+}
