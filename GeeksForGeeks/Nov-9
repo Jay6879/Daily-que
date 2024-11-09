@@ -1,0 +1,41 @@
+class Solution {
+    String minSum(int[] arr) {
+        // code here
+        Arrays.sort(arr);
+        
+        StringBuilder sb = new StringBuilder();
+        
+        int i = arr.length-1;
+        int cy = 0;
+        
+        while(i>=0){
+            int first = arr[i--];
+            int second = 0;
+            if(i>=0){
+                second = arr[i--];
+            }
+            
+            int val = first+second+cy;
+            cy = val/10;
+            val = val%10;
+            sb.append(val);
+        }
+        
+        if(cy!=0){
+            sb.append(cy);
+        }
+        
+        i = sb.length()-1;
+        
+        while(i>=0){
+            if(sb.charAt(i)!='0'){
+                break;
+            }
+            i--;
+        }
+        
+        sb = new StringBuilder(sb.substring(0,i+1));
+        
+        return sb.reverse().toString();
+    }
+}
