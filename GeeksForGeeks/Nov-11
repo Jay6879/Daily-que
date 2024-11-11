@@ -1,0 +1,18 @@
+class Solution {
+    public int minIncrements(int[] arr) {
+        // Code here
+        Arrays.sort(arr);
+        
+        int count = 0;
+        
+        for(int i=1;i<arr.length;i++){
+            if(arr[i-1]>=arr[i]){
+                int val  = arr[i-1]-arr[i]+1;
+                count += val;
+                arr[i] = arr[i-1]+1;
+            }
+        }
+        
+        return count;
+    }
+}
