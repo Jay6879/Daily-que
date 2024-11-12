@@ -1,0 +1,39 @@
+class Solution {
+    public int[] maximumBeauty(int[][] items, int[] queries) {
+        Arrays.sort(items,(a,b)->a[0]-b[0]);
+
+        int[] ans = new int[queries.length];
+        int max = items[0][1];
+        for (int i = 0; i < items.length; i++) {
+            max = Math.max(max, items[i][1]);
+            items[i][1] = max;
+        }
+
+        for(int i=0;i<queries.length;i++){
+            int maxBeauty = binarySearch(items,queries[i]);
+            ans[i] = maxBeauty;
+        }
+
+        return ans;
+    }
+
+    public int binarySearch(int[][] items,int max){
+        int left = 0;
+        int right = items.length-1;
+
+        int maxValue = Integer.MIN_VALUE;
+
+        while(left<=right){
+            int mid = left+(right-left)/2;
+            if(items[mid][0]<=max){
+                maxValue = Math.max(maxValue,items[mid][1]);
+                left = mid+1;
+            }
+            else{
+                right = mid-1;
+            }
+        }
+
+        return maxValue==Integer.MIN_VALUE?0:maxValue;
+    }
+}
