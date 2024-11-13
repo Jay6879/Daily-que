@@ -4,7 +4,7 @@ class Solution {
 
         return lowerBound(nums,upper+1) - lowerBound(nums,lower);
     }
-
+ 
     public long lowerBound(int[] nums,int bound){
 
         int i=0;
