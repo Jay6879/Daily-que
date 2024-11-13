@@ -1,0 +1,28 @@
+class Solution {
+    public long countFairPairs(int[] nums, int lower, int upper) {
+        Arrays.sort(nums);
+
+        return lowerBound(nums,upper+1) - lowerBound(nums,lower);
+    }
+
+    public long lowerBound(int[] nums,int bound){
+
+        int i=0;
+        int j=nums.length-1;
+
+        long count = 0;
+
+        while(i<j){
+            int val = nums[i]+nums[j];
+            if(val<bound){
+                count+=(j-i);
+                i++;
+            }
+            else{
+                j--;
+            }
+        }
+
+        return count;
+    }
+}
