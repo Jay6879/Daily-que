@@ -1,0 +1,52 @@
+class Solution {
+    void nextPermutation(int[] arr) {
+        // code here
+        int i = arr.length-1;
+        
+        boolean flag = false;
+        
+        while(i>0){
+            if(arr[i]>arr[i-1]){
+                flag = true;
+                i--;                
+                break;
+            }
+            i--;
+        }
+
+        if(!flag){
+            reverse(arr,0,arr.length-1);
+            return;
+        }
+        
+        int j = arr.length-1;
+        
+        while(j>i){
+            if(arr[j]>arr[i]){
+                swap(arr,i,j);
+                break;
+            }
+            j--;
+        }
+        
+        reverse(arr,i+1,arr.length-1);
+        
+    }
+    
+    void swap(int[] arr,int left,int right){
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+    }
+    
+    void reverse(int[] arr,int left,int right){
+        
+        while(left<=right){
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+}
