@@ -1,0 +1,62 @@
+class State{
+    int row;
+    int col;
+    int obstaclesRemoved;
+    State(int row,int col,int obstaclesRemoved){
+        this.row = row;
+        this.col = col;
+        this.obstaclesRemoved = obstaclesRemoved;
+    }
+}
+
+class Solution {
+
+    int[][] directions = new int[][]{{1,0},{0,1},{-1,0},{0,-1}};
+
+    public int minimumObstacles(int[][] grid) {
+        
+        int[][] obstacleGrid = new int[grid.length][grid[0].length];
+
+        for(int i=0;i<grid.length;i++){
+            Arrays.fill(obstacleGrid[i],Integer.MAX_VALUE);
+        }
+
+        PriorityQueue<State> q = new PriorityQueue<>((a,b)->a.obstaclesRemoved-b.obstaclesRemoved);
+
+        q.add(new State(0,0,0));
+
+        while(!q.isEmpty()){
+            State st = q.poll();
+
+            int cr = st.row;
+            int cc = st.col;
+            int currentObstacles = st.obstaclesRemoved;
+
+            if(cr==grid.length-1 && cc==grid[0].length-1){
+                return currentObstacles;
+            }
+
+            for(int[] direction:directions){
+                int nr = direction[0]+cr;
+                int nc = direction[1]+cc;
+
+                if(isValid(nr,nc,grid)){
+
+                    int newObstacles  = currentObstacles+grid[cr][cc];
+
+                    if(newObstacles<obstacleGrid[nr][nc]){
+                        obstacleGrid[nr][nc] = newObstacles;
+                        q.add(new State(nr,nc,newObstacles));
+                    }
+                }
+            }
+        }
+
+        return obstacleGrid[grid.length-1][grid[0].length-1];
+        
+    }
+
+    public boolean isValid(int row,int col,int[][] grid){
+        return row>=0 && row<grid.length && col>=0 && col<grid[0].length;
+    }
+}
