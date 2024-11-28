@@ -1,0 +1,43 @@
+class Solution {
+    public int myAtoi(String s) {
+        // Your code here
+        
+        long ans = 0;
+        s = s.trim();
+        
+        int flag = 1;
+        
+        int i=0;
+        
+        if(s.charAt(0)=='-'){
+            flag = -1;
+            i++;
+        }
+        
+        if(s.charAt(0)=='+'){
+            flag = 1;
+            i++;
+        }
+        
+        while(i<s.length()){
+            if(!Character.isDigit(s.charAt(i))){
+                return (int)ans*flag;
+            }
+            
+            ans = ans*10 + (s.charAt(i)-'0');
+            
+            if(ans>Integer.MAX_VALUE){
+                if(flag==-1){
+                    return Integer.MIN_VALUE;
+                }
+                else{
+                    return Integer.MAX_VALUE;
+                }
+            }
+            
+            i++;
+        }
+        
+        return (int)ans*flag;
+    }
+}
