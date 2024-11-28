@@ -1,0 +1,52 @@
+class Solution {
+    HashMap<Integer,List<Integer>> hmap;
+    boolean[] seen;
+    public int findChampion(int n, int[][] edges) {
+        hmap = new HashMap<>();
+
+        seen = new boolean[n];
+
+        for(int i=0;i<n;i++){
+            hmap.put(i,new ArrayList<>());
+        }
+
+        for(int[] edge:edges){
+            hmap.get(edge[0]).add(edge[1]);
+        }
+
+        for(int i=0;i<n;i++){
+            if(!seen[i]){
+                for(int nei:hmap.get(i)){
+                    if(!seen[nei]){
+                        dfs(nei);
+                    }
+                }
+            }
+        }
+
+        int node = -1;
+
+        for(int i=0;i<n;i++){
+            if(!seen[i] && node==-1){
+                node = i;
+            }
+            else if(!seen[i] && node!=-1){
+                return -1;
+            }
+        }
+
+        return node;
+
+
+    }
+
+    public void dfs(int node){
+        seen[node] = true;
+
+        for(int nei:hmap.get(node)){
+            if(!seen[nei]){
+                dfs(nei);
+            }
+        }
+    }
+}
