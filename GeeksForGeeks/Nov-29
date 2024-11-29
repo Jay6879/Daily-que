@@ -1,0 +1,32 @@
+class Solution {
+    public String addBinary(String s1, String s2) {
+        StringBuilder ans = new StringBuilder();
+        
+        int i = s1.length() - 1;
+        int j = s2.length() - 1;
+        
+        int cy = 0; // Carry
+        
+        // Adding bits from both strings
+        while (i >= 0 || j >= 0 || cy != 0) {
+            int val = cy;
+            if (i >= 0) {
+                val += s1.charAt(i) - '0';
+                i--;
+            }
+            if (j >= 0) {
+                val += s2.charAt(j) - '0';
+                j--;
+            }
+            ans.insert(0, val % 2);
+            cy = val / 2;
+        }
+        
+        // Remove leading zeros
+        while (ans.length() > 1 && ans.charAt(0) == '0') {
+            ans.deleteCharAt(0);
+        }
+        
+        return ans.toString();
+    }
+}
