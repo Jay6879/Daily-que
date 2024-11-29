@@ -1,0 +1,61 @@
+class State {
+    int row, col, timeTaken;
+
+    State(int row, int col, int timeTaken) {
+        this.row = row;
+        this.col = col;
+        this.timeTaken = timeTaken;
+    }
+}
+
+class Solution {
+    int[][] directions = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+
+    public int minimumTime(int[][] grid) {
+        int rows = grid.length;
+        int cols = grid[0].length;
+
+         if (grid[0][1] > 1 && grid[1][0] > 1) {
+            return -1;
+        }
+
+ 
+        PriorityQueue<State> pq = new PriorityQueue<>((a, b) -> a.timeTaken - b.timeTaken);
+
+        boolean[][] visited = new boolean[rows][cols];
+
+        pq.add(new State(0, 0, 0));
+
+        while (!pq.isEmpty()) {
+            State current = pq.poll();
+            int cr = current.row, cc = current.col, currentTime = current.timeTaken;
+
+            if (cr == rows - 1 && cc == cols - 1) {
+                return currentTime;
+            }
+
+            if (visited[cr][cc]) {
+                continue;
+            }
+            visited[cr][cc] = true;
+
+            for (int[] direction : directions) {
+                int nr = cr + direction[0];
+                int nc = cc + direction[1];
+
+                if (isValid(nr, nc, rows, cols,visited)) {
+                    int waitTime = ((grid[nr][nc] - currentTime) % 2 == 0)? 1 : 0;
+                    int newTime = Math.max(grid[nr][nc]+waitTime,currentTime+1);
+                    pq.add(new State(nr,nc,newTime));
+                }
+            }
+        }
+
+        return -1;
+    }
+
+
+    public boolean isValid(int row, int col, int rows, int cols,boolean[][] visited) {
+        return row >= 0 && row < rows && col >= 0 && col < cols && !visited[row][col];
+    }
+}
