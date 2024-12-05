@@ -1,0 +1,42 @@
+class Solution {
+    public boolean canChange(String start, String target) {
+        int pt1 = 0;
+        int pt2 = 0;
+
+        while(pt1<start.length() && pt2<target.length()){
+            if(start.charAt(pt1)=='_'){
+                pt1++;
+            }
+            else if(target.charAt(pt2)=='_'){
+                pt2++;
+            }
+            else if(start.charAt(pt1)=='L' && target.charAt(pt2)=='L' && pt1>=pt2){
+                pt1++;
+                pt2++;
+            }
+            else if(start.charAt(pt1)=='R' && target.charAt(pt2)=='R' && pt1<=pt2){
+                pt1++;
+                pt2++;
+            }
+            else{
+                return false;
+            }
+        }
+
+        while(pt1<start.length()){
+            if(start.charAt(pt1)=='L' || start.charAt(pt1)=='R'){
+                return false;
+            }
+            pt1++;
+        }
+
+        while(pt2<target.length()){
+            if(target.charAt(pt2)=='L' || target.charAt(pt2)=='R'){
+                return false;
+            }
+            pt2++;
+        }
+
+        return true;
+    }
+}
