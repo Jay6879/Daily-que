@@ -1,0 +1,33 @@
+class Solution {
+    
+    public int hIndex(int[] citations) {
+        int low = 0;
+        int high = citations.length;
+        int maxHIndex = 0;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (isPossible(citations, mid)) {
+                maxHIndex = mid;
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return maxHIndex;
+    }
+
+    public boolean isPossible(int[] citations, int val) {
+        int count = 0;
+
+        for (int citation : citations) {
+            if (citation >= val) {
+                count++;
+            }
+        }
+
+        return count >= val;
+    }
+}
