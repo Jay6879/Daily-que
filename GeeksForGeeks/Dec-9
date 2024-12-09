@@ -1,0 +1,47 @@
+class Solution {
+    static ArrayList<int[]> insertInterval(int[][] intervals, int[] newInterval) {
+        // code here
+        ArrayList<int[]> al = new ArrayList<>();
+        
+        boolean flag = false;
+        
+        int i = 0;
+        for(int[] interval:intervals){
+            if(interval[1]>=newInterval[0] && interval[0]<=newInterval[1]){
+                interval[0] = Math.min(interval[0],newInterval[0]);
+                interval[1] = Math.max(interval[1],newInterval[1]);
+                al.add(interval);
+                i++;
+                flag = true;
+                break;
+            }
+            else if(interval[0]>newInterval[0]){
+                al.add(newInterval);
+                flag = true;
+                al.add(interval);
+                i++;
+                break;
+            }
+            else{
+                al.add(interval);
+            }
+            i++;
+        }
+        
+        
+        for(;i<intervals.length;i++){
+            if(intervals[i][0]<=al.get(al.size()-1)[1]){
+                al.get(al.size()-1)[1] = Math.max(al.get(al.size()-1)[1],intervals[i][1]);
+            }
+            else{
+                al.add(intervals[i]);
+            }
+        }
+        
+        if(!flag){
+            al.add(newInterval);
+        }
+        
+        return al;
+    }
+}
