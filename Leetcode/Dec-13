@@ -1,0 +1,46 @@
+class State{
+    int num;
+    int idx;
+    State(int num,int idx){
+        this.num = num;
+        this.idx = idx;
+    }
+}
+
+class Solution {
+    public long findScore(int[] nums) {
+        HashSet<Integer> hset = new HashSet<>();
+
+        PriorityQueue<State> pq = new PriorityQueue<>((a,b)->{
+            if(a.num==b.num){
+                return a.idx-b.idx;
+            }
+
+            return a.num-b.num;
+        });
+
+        for(int i=0;i<nums.length;i++){
+            pq.add(new State(nums[i],i));
+        }
+
+        long score = 0;
+
+        while(!pq.isEmpty()){
+            State st = pq.remove();
+            int num = st.num;
+            int idx = st.idx;
+
+            if(hset.contains(idx)){
+                continue;
+            }
+
+            score+=num;
+
+            hset.add(idx);
+            hset.add(idx-1);
+            hset.add(idx+1);
+        }
+
+        return score;
+    }
+}
