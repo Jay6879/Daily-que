@@ -1,0 +1,54 @@
+class Solution {
+    int search(int[] arr, int key) {
+        // Complete this function
+        
+        int low = 0;
+        int high = arr.length-1;
+        
+        int n = arr.length-1;
+        
+        while(low<=high){
+            int mid = low+(high-low)/2;
+            
+            if(arr[mid]>arr[n]){
+                low = mid+1;
+            }
+            else{
+                high = mid-1;
+            }
+        }
+        
+        int val = -1;
+        
+        if(key>=arr[low] && key<=arr[n]){
+            val = binarySearch(arr,low,n,key);
+        }
+        else{
+            val = binarySearch(arr,0,low-1,key);
+        }
+        
+        return val;
+        
+        
+    }
+    
+    int binarySearch(int[] arr,int low,int high,int target){
+        
+        
+        while(low<=high){
+            int mid = low+(high-low)/2;;
+            
+            if(arr[mid]==target){
+                return mid;
+            }
+            else if(arr[mid]<target){
+                low = mid+1;
+            }
+            else{
+                high = mid-1;
+            }
+        }
+        
+        return -1;
+    }
+}
