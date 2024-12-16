@@ -1,0 +1,39 @@
+class State{
+    int num;
+    int idx;
+    State(int num,int idx){
+        this.num = num;
+        this.idx = idx;
+    }
+}
+
+class Solution {
+    public int[] getFinalState(int[] nums, int k, int multiplier) {
+        
+        PriorityQueue<State> pq = new PriorityQueue<>((a,b)->{
+            if(a.num==b.num){
+                return a.idx-b.idx;
+            }
+
+            return a.num-b.num;
+        });
+
+        for(int i=0;i<nums.length;i++){
+            pq.add(new State(nums[i],i));
+        }
+
+        while(k>0){
+            State st = pq.remove();
+            int newNum = st.num*multiplier;
+            pq.add(new State(newNum,st.idx));
+            k--;
+        }
+
+        while(!pq.isEmpty()){
+            State st = pq.remove();
+            nums[st.idx] = st.num;
+        }
+
+        return nums;
+    }
+}
