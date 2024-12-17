@@ -1,0 +1,46 @@
+class Solution {
+    public static int aggressiveCows(int[] stalls, int k) {
+        // code here
+        int low = 1;
+        int high = Integer.MIN_VALUE;
+        
+        Arrays.sort(stalls);
+        
+        for(int stall:stalls){
+            high = Math.max(high,stall);
+        }
+        
+        high = high-low;
+        
+        int ans = 0;
+        
+        while(low<=high){
+            int mid = low+(high-low)/2;
+            if(binarySearch(mid,stalls,k)){
+                ans = mid;
+                low = mid+1;
+            }
+            else{
+                high = mid-1;
+            }
+        }
+        
+        return ans;
+    }
+    
+    public static boolean binarySearch(int dist,int[] stalls,int k){
+        int count = 1;  // Place the first cow in the first stall
+        int lastPlaced = stalls[0];
+        
+        // Try to place the remaining cows
+        for (int i = 1; i < stalls.length; i++) {
+            if (stalls[i] - lastPlaced >= dist) {
+                count++;
+                lastPlaced = stalls[i];  // Update the position of last placed cow
+            }
+            if (count == k) return true;  // All cows are placed successfully
+        }
+        
+        return false; 
+    }
+}
