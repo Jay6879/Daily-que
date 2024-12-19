@@ -1,0 +1,23 @@
+class Solution {
+    public int kthMissing(int[] arr, int k) {
+        // code here
+        HashSet<Integer> hset = new HashSet<>();
+        
+        for(int num:arr){
+            hset.add(num);
+        }
+        
+        int count = 0;
+        
+        for(int i=1;i<=(int)Math.pow(10,6);i++){
+            if(!hset.contains(i)){
+                count++;
+                if(count==k){
+                    return i;
+                }
+            }
+        }
+        
+        return -1;
+    }
+}
