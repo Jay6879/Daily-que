@@ -1,0 +1,18 @@
+class Solution {
+
+    int countPairs(int arr[], int target) {
+        // Your code here
+        HashMap<Integer,Integer> hmap = new HashMap<>();
+        
+        int count = 0;
+        
+        for(int num:arr){
+            if(hmap.containsKey(target-num)){
+                count+=hmap.get(target-num);
+            }
+            hmap.put(num, hmap.getOrDefault(num, 0) + 1);
+        }
+        
+        return count;
+    }
+}
