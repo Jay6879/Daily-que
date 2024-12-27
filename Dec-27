@@ -1,0 +1,15 @@
+class Solution {
+    public int maxScoreSightseeingPair(int[] values) {
+        int maxIvalue = values[0]; 
+        int diff = Integer.MIN_VALUE;
+
+        for (int j = 1; j < values.length; j++) {
+
+            diff = Math.max(diff, maxIvalue + values[j] - j);
+            
+            maxIvalue = Math.max(maxIvalue, values[j] + j);
+        }
+
+        return diff;
+    }
+}
