@@ -1,0 +1,29 @@
+class Solution {
+    public int maxScore(String s) {
+        int numOnes = 0;
+
+        for(char c:s.toCharArray()){
+            if(c=='1'){
+                numOnes++;
+            }
+        }
+
+        int maxScore = Integer.MIN_VALUE;
+        int numZeros = 0;
+
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='1'){
+                numOnes--;
+            }
+            if(s.charAt(i)=='0'){
+                numZeros++;;
+            }
+            if(s.substring(0,i+1).equals("") || s.substring(i+1).equals("")){
+                continue;
+            }
+            maxScore = Math.max(maxScore,numZeros+numOnes);
+        }
+
+        return maxScore;
+    }
+}
