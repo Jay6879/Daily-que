@@ -1,0 +1,23 @@
+class Solution {
+    public int waysToSplitArray(int[] nums) {
+        long sum = 0;
+
+        for(int num:nums){
+            sum+=num;
+        }
+
+        int count = 0;
+
+        long newSum = 0;
+        for(int i=0;i<nums.length-1;i++){
+            int num = nums[i];
+            newSum+=num;
+            sum-=num;
+            if(newSum>=sum){
+                count++;
+            }
+        }
+
+        return count;
+    }
+}
