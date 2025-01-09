@@ -1,0 +1,40 @@
+class Solution {
+    static ArrayList<Integer> subarraySum(int[] arr, int target) {
+        // code here
+        ArrayList<Integer> al = new ArrayList<>();
+        
+        int right = 0;
+        int left = 0;
+        
+        
+        int currSum = 0;
+        
+        while(right<arr.length){
+            if(currSum+arr[right]<target){
+                currSum+=arr[right];
+            }
+            else if(currSum+arr[right]==target){
+                al.add(left+1);
+                al.add(right+1);
+                return al;
+            }
+            else{
+                while(left<=right && currSum+arr[right]>target){
+                    currSum-=arr[left];
+                    left++;
+                }
+                currSum+=arr[right];
+                if(currSum==target){
+                    al.add(left+1);
+                    al.add(right+1);
+                    return al;
+                }
+            }
+            right++;
+        }
+        
+        al.add(-1);
+        
+        return al;
+    }
+}
