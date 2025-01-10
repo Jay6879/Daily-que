@@ -1,0 +1,45 @@
+class Solution {
+    public List<String> wordSubsets(String[] words1, String[] words2) {
+        List<String> universalWords = new ArrayList<>();
+        
+        // Array to store the maximum required frequency for each character
+        int[] required = new int[26];
+        
+        // Build the required frequency array from words2
+        for (String word : words2) {
+            int[] wordCount = countChars(word);
+            for (int i = 0; i < 26; i++) {
+                required[i] = Math.max(required[i], wordCount[i]);
+            }
+        }
+        
+        // For each word in words1, check if it satisfies the required frequencies
+        for (String word : words1) {
+            int[] wordCount = countChars(word);
+            if (isUniversal(wordCount, required)) {
+                universalWords.add(word);
+            }
+        }
+        
+        return universalWords;
+    }
+    
+    // Helper method to count character frequencies in a word
+    private int[] countChars(String word) {
+        int[] count = new int[26];
+        for(char c : word.toCharArray()){
+            count[c - 'a']++;
+        }
+        return count;
+    }
+    
+    // Helper method to check if wordCount satisfies required frequencies
+    private boolean isUniversal(int[] wordCount, int[] required) {
+        for(int i = 0; i < 26; i++) {
+            if(wordCount[i] < required[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
