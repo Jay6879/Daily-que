@@ -1,0 +1,32 @@
+class Solution {
+    public int[] findThePrefixCommonArray(int[] A, int[] B) {
+        HashSet<Integer> hset1 = new HashSet<>();
+
+        HashSet<Integer> hset2 = new HashSet<>();
+
+        int[] ans = new int[A.length];
+
+        for(int i=0;i<ans.length;i++){
+            hset1.add(A[i]);
+            hset2.add(B[i]);
+
+            ans[i] = findCommon(hset1,hset2);
+        }
+
+        return ans;
+
+
+    }
+
+    public int findCommon(HashSet<Integer> hset1,HashSet<Integer> hset2){
+        int count = 0;
+
+        for(int num:hset1){
+            if(hset2.contains(num)){
+                count++;
+            }
+        }
+
+        return count;
+    }
+}
