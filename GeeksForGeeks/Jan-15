@@ -1,0 +1,25 @@
+class Solution {
+    public int longestSubarray(int[] arr, int k) {
+        // code here
+        HashMap<Integer,Integer> hmap = new HashMap<>();
+        
+        hmap.put(0,-1);
+        
+        int currSum = 0;
+        int maxLength=0;
+        
+        for(int i=0;i<arr.length;i++){
+            currSum+=arr[i];
+            
+            if(hmap.containsKey(currSum-k)){
+                maxLength = Math.max(maxLength,i-hmap.get(currSum-k));
+            }
+            
+            if(!hmap.containsKey(currSum)){
+                hmap.put(currSum,i);
+            }
+        }
+        
+        return maxLength;
+    }
+}
