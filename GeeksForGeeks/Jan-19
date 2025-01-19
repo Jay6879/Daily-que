@@ -1,0 +1,41 @@
+/* node of linked list:
+
+class Node{
+    int data;
+    Node next;
+    Node(int d){
+        data=d;
+        next=null;
+    }
+}
+
+*/
+
+class Solution {
+    public Node rotate(Node head, int k) {
+        // add code here
+        Node dummy = head;
+        int len = 1;
+        while (dummy.next != null) {
+            dummy = dummy.next;
+            len++;
+        }
+
+        // Step 2: Calculate effective rotations
+        k = k % len;
+        if (k == 0) {
+            return head; // No rotation needed if k is a multiple of len
+        }
+        
+        while(k>0){
+            Node next = head.next;
+            head.next = null;
+            dummy.next = head;
+            head = next;
+            k--;
+            dummy = dummy.next;
+        }
+        
+        return head;
+    }
+}
