@@ -1,0 +1,28 @@
+class Solution {
+    double power(double b, int e) {
+        // code here
+        double ans = 1;
+        boolean flag = false;
+        if(e<0){
+            flag = true;
+            e = e*-1;
+        }
+        
+        while(e>0){
+            if(e%2==0){
+                b = b*b;
+                e = e/2;
+            }
+            else{
+                e--;
+                ans = ans*b;
+            }
+        }
+        
+        if(flag){
+            return (double)(1/ans);
+        }
+        
+        return ans;
+    }
+}
