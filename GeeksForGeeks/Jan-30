@@ -1,0 +1,41 @@
+class Solution {
+    int n;
+    public ArrayList<ArrayList<Integer>> nQueen(int n) {
+        // code here
+        this.n = n;
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        
+        backtrack(0,ans,new ArrayList<>(),new HashSet<>(),new HashSet<>(),new HashSet<>());
+        
+        return ans;
+    }
+    
+    public void backtrack(int row,ArrayList<ArrayList<Integer>> ans,ArrayList<Integer> al, HashSet<Integer> cols,
+    HashSet<Integer> diagnols,HashSet<Integer> antiDiagnols){
+        if(row==n){
+            ans.add(new ArrayList<>(al));
+            return;
+        }
+        
+        for(int col=0;col<n;col++){
+            int diagnol = row-col;
+            int antiDiagnol = row+col;
+            
+            if(cols.contains(col) || diagnols.contains(diagnol) || antiDiagnols.contains(antiDiagnol)){
+                continue;
+            }
+            
+            cols.add(col);
+            diagnols.add(diagnol);
+            antiDiagnols.add(antiDiagnol);
+            al.add(col+1);
+            
+            backtrack(row+1,ans,al,cols,diagnols,antiDiagnols);
+            
+            cols.remove(col);
+            diagnols.remove(diagnol);
+            antiDiagnols.remove(antiDiagnol);
+            al.remove(al.size()-1);
+        }
+    }
+}
