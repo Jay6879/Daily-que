@@ -1,0 +1,74 @@
+class Solution {
+    ArrayList<Integer> boundaryTraversal(Node node) {
+        // code here
+        ArrayList<Integer> al = new ArrayList<>();
+        
+        if(node==null){
+            return al;
+        }
+        
+        if(node.left==null && node.right==null){
+            al.add(node.data);
+            return al;
+        }
+        
+        al.add(node.data);
+        
+        leftView(node.left,al);
+        leafNodes(node,al);
+        rightView(node.right,al);
+        
+        return al;
+    }
+    
+    void leftView(Node node,ArrayList<Integer> al){
+        if(node==null){
+            return;
+        }
+        
+        if(node.left==null && node.right==null){
+            return;
+        }
+        
+        
+        al.add(node.data);
+        if(node.left!=null){
+            leftView(node.left,al);
+        }
+        else{
+            leftView(node.right,al);
+        }
+    }
+    
+    void leafNodes(Node node,ArrayList<Integer> al){
+        if(node==null){
+            return;
+        }
+        
+        if(node.left==null && node.right==null){
+            al.add(node.data);
+        }
+        
+        leafNodes(node.left,al);
+        leafNodes(node.right,al);
+    }
+    
+    void rightView(Node node,ArrayList<Integer> al){
+        if(node==null){
+            return;
+        }
+        
+        if(node.left==null && node.right==null){
+            return;
+        }
+        
+        if(node.right!=null){
+            rightView(node.right,al);
+        }
+        else{
+            rightView(node.left,al);
+        }
+        
+        al.add(node.data);
+    }
+}
