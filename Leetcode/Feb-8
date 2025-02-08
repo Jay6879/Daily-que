@@ -1,0 +1,40 @@
+class NumberContainers {
+
+    HashMap<Integer, TreeSet<Integer>> hmap1;
+    HashMap<Integer,Integer> hmap2;
+    public NumberContainers() {
+        hmap1 = new HashMap<>();
+        hmap2 = new HashMap<>();
+    }
+    
+    public void change(int index, int number) {
+        if(hmap2.containsKey(index)){
+            int val = hmap2.get(index);
+            hmap1.get(val).remove(index);
+            if(hmap1.get(val).size()==0){
+                hmap1.remove(val);
+            }
+            if(!hmap1.containsKey(number)){
+                hmap1.put(number,new TreeSet<>());
+            }
+            hmap1.get(number).add(index);
+            hmap2.put(index,number);
+        }
+        else{
+            if(!hmap1.containsKey(number)){
+                hmap1.put(number,new TreeSet<>());
+            }
+            hmap1.get(number).add(index);
+            hmap2.put(index,number);
+        }
+    }
+    
+    public int find(int number) {
+        if(hmap1.containsKey(number)){
+            return hmap1.get(number).first();
+        }
+        else{
+            return -1;
+        }
+    }
+}
