@@ -1,0 +1,40 @@
+class Solution {
+    public int maximumSum(int[] nums) {
+        HashMap<Integer,PriorityQueue<Integer>> hmap = new HashMap<>();
+
+        for(int i=0;i<nums.length;i++){
+            int sumOfDigits = getSum(nums[i]);
+            if(!hmap.containsKey(sumOfDigits)){
+                hmap.put(sumOfDigits,new PriorityQueue<>((n1,n2)->n2-n1));
+            }
+
+            hmap.get(sumOfDigits).add(nums[i]);
+        }
+
+        int max = -1;
+        for(int key:hmap.keySet()){
+            int size = hmap.get(key).size();
+            if(size>=2){
+                max = Math.max(hmap.get(key).poll()+hmap.get(key).poll(),max);
+            }
+        }
+
+        return max;
+
+    }
+
+    public int getSum(int num){
+        if(num==0){
+            return 0;
+        }
+
+        int sum = 0;
+
+        while(num>0){
+            sum = sum +num%10;
+            num= num/10;
+        }
+
+        return sum;
+    }
+}
