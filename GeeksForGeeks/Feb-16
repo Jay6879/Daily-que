@@ -1,0 +1,70 @@
+class Tree {
+    // Function to serialize a tree and return a list containing nodes of tree.
+    public ArrayList<Integer> serialize(Node root) {
+        // code here
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        Queue<Node> q = new LinkedList<>();
+        
+        q.add(root);
+        ans.add(root.data);
+        
+        while(!q.isEmpty()){
+            Node node = q.poll();
+            
+            if(node.left!=null){
+                q.add(node.left);
+                ans.add(node.left.data);
+            }
+            else{
+                ans.add(-1);
+            }
+            
+            
+            if(node.right!=null){
+                q.add(node.right);
+                ans.add(node.right.data);
+            }
+            else{
+                ans.add(-1);
+            }
+        }
+        
+        return ans;
+    }
+
+    // Function to deserialize a list and construct the tree.
+    public Node deSerialize(ArrayList<Integer> arr) {
+        // code here
+        if(arr.size()==0){
+            return null;
+        }
+        
+        Queue<Node> q = new LinkedList<>();
+        
+        Node root = new Node(arr.get(0));
+        
+        q.add(root);
+        
+        int i = 1;
+        
+        while(!q.isEmpty() && i<arr.size()){
+            Node node = q.poll();
+            
+            if(arr.get(i)!=-1){
+                node.left = new Node(arr.get(i));
+                q.add(node.left);
+            }
+            
+            i++;
+            
+            if(i<arr.size() && arr.get(i)!=-1){
+                node.right = new Node(arr.get(i));
+                q.add(node.right);
+            }
+            i++;
+        }
+        
+        return root;
+    }
+};
