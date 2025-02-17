@@ -1,0 +1,28 @@
+import java.util.HashSet;
+
+class Solution {
+    HashSet<String> ans;
+    
+    public int numTilePossibilities(String tiles) {
+        ans = new HashSet<>(); // Use HashSet to store unique sequences
+        boolean[] used = new boolean[tiles.length()]; // Track used characters
+        
+        backtrack("", tiles, used);
+        
+        return ans.size(); // No need to subtract 1, since we only store valid permutations
+    }
+
+    private void backtrack(String curr, String tiles, boolean[] used) {
+        if (!curr.isEmpty()) {
+            ans.add(curr);
+        }
+
+        for (int i = 0; i < tiles.length(); i++) {
+            if (used[i]) continue;
+
+            used[i] = true;
+            backtrack(curr + tiles.charAt(i), tiles, used);
+            used[i] = false; // Backtrack
+        }
+    }
+}
