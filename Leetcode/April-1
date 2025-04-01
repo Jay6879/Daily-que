@@ -1,0 +1,24 @@
+class Solution {
+    HashMap<Integer,Long> hmap;
+    public long mostPoints(int[][] questions) {
+        hmap = new HashMap<>();
+
+        return dp(0,questions);
+    }
+
+    public long dp(int idx,int[][] questions){
+        if(idx>=questions.length){
+            return 0;
+        }
+
+        if(hmap.containsKey(idx)){
+            return hmap.get(idx);
+        }
+
+        long score = Math.max(questions[idx][0] + dp(idx+questions[idx][1]+1,questions), dp(idx+1,questions));
+
+        hmap.put(idx,score);
+
+        return score;
+    }
+}
