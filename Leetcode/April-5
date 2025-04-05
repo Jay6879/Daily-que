@@ -1,0 +1,26 @@
+class Solution {
+    public int subsetXORSum(int[] nums) {
+        int totalSum = 0;
+
+        for(int i=1;i<=nums.length;i++){
+            totalSum+=xorSum;
+        }
+
+        return totalSum;
+
+    }
+
+    public int xorSum(int[] nums,int size){
+        int sum = 0;
+
+        int left = 0;
+        int right = 0;
+
+        while(right<nums.length){
+            sum^=nums[right];
+            
+        }
+
+        return sum;
+    }
+}
